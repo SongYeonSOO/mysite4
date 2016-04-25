@@ -40,11 +40,11 @@
 					
 					<c:if test="${vo.user_no==sessionScope.authUser.no}">
 
-						<a href="/mysite3/board?a=boardmodifyform&no=${vo.no}">글수정</a>
+						<a href="/mysite3/board/boardmodifyform?no=${vo.no}">글수정</a>
 					</c:if>
 					
 					<c:if test="${sessionScope.authUser!= null}">
-					<a href="/mysite3/board?a=writeform&no=${vo.no}">답글</a>
+					<a href="/mysite3/board/writeform?no=${vo.no}">답글</a>
 					</c:if>
 				</div>
 			</div>

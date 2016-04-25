@@ -44,7 +44,6 @@ public class BoardDao {
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
-				// System.out.println("BoardDao: ok");
 				String title = rs.getString(1);
 				String content = rs.getString(2);
 				String reg_date = rs.getString(3);
@@ -69,7 +68,6 @@ public class BoardDao {
 				UpdateHit(no);
 				}
 				boardVo.setUser_no(user_no);
-				System.out.println("BOARDVO :"+boardVo);
 			}
 
 		} catch (SQLException e) {

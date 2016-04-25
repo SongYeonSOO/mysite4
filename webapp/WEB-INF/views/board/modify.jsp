@@ -20,8 +20,7 @@
 		</c:import>
 		<div id="content">
 			<div id="board">
-				<form class="board-form" method="post" action="/mysite/board">
-					<input type="hidden" name="a" value="boardmodify"> 
+				<form class="board-form" method="post" action="/mysite3/board/boardmodify"> 
 					<input type="hidden" name="no" value="${vo.no}">
 					<table class="tbl-ex">
 						<tr>
@@ -38,7 +37,7 @@
 						</tr>
 					</table>
 					<div class="bottom">
-						<a href="mysite3/board/">취소</a> <input type="submit" value="수정">
+						<a href="mysite3/board">취소</a> <input type="submit" value="수정">
 					</div>
 				</form>
 			</div>

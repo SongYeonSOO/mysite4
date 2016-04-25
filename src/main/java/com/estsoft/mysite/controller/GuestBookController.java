@@ -44,8 +44,6 @@ public class GuestBookController {
 		
 		Long no= guestbookService.insert(vo);
 		GuestBookVo guestVo = guestbookService.getVo(no);
-
-
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("result", "success");
 		map.put("data", guestVo);
@@ -56,8 +54,6 @@ public class GuestBookController {
 	@ResponseBody
 	public Map<String, Object> delete(@ModelAttribute GuestBookVo vo) {
 		int delete = guestbookService.delete(vo);
-		System.out.println("vono:"+vo.getNo());
-		System.out.println("vopw:"+vo.getPasswd());
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("result", "success");
 			map.put("data", delete);

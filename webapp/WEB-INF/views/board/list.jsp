@@ -19,7 +19,7 @@
 		</c:import>
 		<div id="content">
 			<div id="board">
-				<form id="search_form" action="/mysite/board" method="post">
+				<form id="search_form" action="/mysite3/board" method="post">
 					<input type="text" id="kwd" name="kwd" value=""> <input
 						type="submit" value="찾기">
 				</form>
@@ -40,7 +40,7 @@
 								<c:when test="${vo.depth==0}">
 									<td>${requestScope.boardno-status.index}</td>
 									<td style="text-align: left; padding-left: 0px"><a
-										href="/mysite/board?a=view&no=${vo.no}">${vo.title}</a></td>
+										href="/mysite3/board/view&no=${vo.no}">${vo.title}</a></td>
 									<td>${vo.user_name}</td>
 									<td>${vo.hit}</td>
 									<td>${vo.reg_date}</td>
@@ -49,7 +49,7 @@
 									<td>${requestScope.boardno-status.index}</td>
 									<td style="text-align:left; padding-left:${vo.depth*20}px"><img
 										src="${pageContext.request.contextPath}/assets/images/reply.png"><a
-										href="/mysite/board?a=view&no=${vo.no}">${vo.title}</a></td>
+										href="/mysite3/board/view&no=${vo.no}">${vo.title}</a></td>
 									<td>${vo.user_name}</td>
 									<td>${vo.hit}</td>
 									<td>${vo.reg_date}</td>
@@ -58,7 +58,7 @@
 							</c:choose>
 							<td><c:if test="${vo.user_no==sessionScope.authUser.no}">
 
-									<a href="/mysite3/board?a=delete&no=${vo.no}&group_no=${vo.group_no}" class="del">삭제</a>
+									<a href="/mysite3/board/delete?no=${vo.no}&group_no=${vo.group_no}" class="del">삭제</a>
 								</c:if></td>
 						</tr>
 
@@ -95,7 +95,7 @@
 					<c:otherwise>
 
 						<div class="bottom">
-							<a href="/mysite3/board?a=writeform" id="new-book">글쓰기</a>
+							<a href="/mysite3/board/writeform" id="new-book">글쓰기</a>
 						</div>
 					</c:otherwise>
 				</c:choose>

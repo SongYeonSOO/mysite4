@@ -19,8 +19,7 @@
 		</c:import>
 		<div id="content">
 			<div id="board">
-				<form class="board-form" method="post" action="/mysite/board">
-					<input type="hidden" name="a" value="write">				
+				<form class="board-form" method="post" action="/mysite3/board/write">
 					<c:if test="${not empty vo.no}">
 					<input type="hidden" name="no" value="${vo.no}">
 					</c:if>>
