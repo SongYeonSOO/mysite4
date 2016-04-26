@@ -55,8 +55,22 @@
 		<property name="url" value="jdbc:mysql://localhost:3306/webdb" />
 		<property name="username" value="webdb" />
 		<property name="password" value="webdb" />
-
 	</bean>
+
+	<!-- MyBatis SqlMapClientFactoryBean -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<!-- MyBatis 환경설정하는 부분 ; /src/main/resources/mybatis/configuration.xml 
+			만들자 -->
+		<property name="configLocation" value="classpath:mybatis/configuration.xml" />
+	</bean>
+
+	<!-- MyBatis SqlSessionTemplate  ; 생성자에서 초기화 (constructor-arg로 sqlsessionfactory에서 sqlsession을 만듬) dao에서는 sqlSession을 쓸 것임.-->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory" />
+	</bean>
+
+
 
 </beans> 
 	

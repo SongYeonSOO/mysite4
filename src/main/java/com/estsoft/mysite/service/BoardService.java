@@ -1,6 +1,8 @@
 package com.estsoft.mysite.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,9 +29,42 @@ public class BoardService {
 		return boardDao.view(no, isview);
 	}
 	
-	public List<BoardVo> SearchList(String kwd, Long page){
-		return boardDao.SearchList(kwd, page);	
+	public Map<String, Object> SearchList(String kwd, Long page){
+		
+		System.out.println("Service SearchList kwd:"+kwd+"pg"+page);
+		
+		//page에 이용!!!
+		 int COUNT_LIST = 5;
+		 int COUNT_PAGE = 5;
+		Long currentpage = page;
+		Long beginpage = currentpage - ((currentpage-1)%COUNT_PAGE);
+		Long totalpage = (long) Math.ceil(boardDao.Count(kwd)/(float)COUNT_PAGE);
+		Long maxpage = null;
+		if(totalpage>=beginpage+COUNT_PAGE-1){
+			maxpage = beginpage+COUNT_PAGE-1;
+		}else{
+			maxpage = totalpage;
 		}
+		
+		Long boardno = boardDao.Count(kwd)-(currentpage-1)*COUNT_PAGE;
+		
+		Map<String, Long> pageinfo = new HashMap<String, Long>();
+		pageinfo.put("beginpage", beginpage);
+		pageinfo.put("totalpage", totalpage);
+		pageinfo.put("maxpage", maxpage);
+		pageinfo.put("currentpage", currentpage);		
+		
+		List<BoardVo> list = boardDao.SearchList(kwd, page);
+		
+		System.out.println("Servicelist"+list);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("pageinfo", pageinfo);
+		map.put("boardno", boardno);
+		map.put("list", list);
+		return map;
+		}
+	
 	public void ModifyUpdate(BoardVo vo){
 		boardDao.ModifyUpdate(vo);	
 		return;

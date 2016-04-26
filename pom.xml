@@ -30,6 +30,7 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
+		
 		<!-- MYSQL JDBC DRIVER(CONNECTOR) -->
 		<!-- 안정성이 높은거로 갑시다 -->
 		<dependency>
@@ -52,6 +53,7 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>2.1.1</version>
 		</dependency>
+
 		<!-- common DBCP(database connection pool) java로 connection pool을 제공하려면 
 			datasource class를 이용함(apache제공) -->
 		<dependency>
@@ -60,7 +62,14 @@
 			<version>1.4</version>
 		</dependency>
 		
-		
+		<!-- spring jdbc -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+
+
 		<!-- MyBatis -->
 		<dependency>
 			<groupId>org.mybatis</groupId>
@@ -73,6 +82,7 @@
 			<artifactId>mybatis-spring</artifactId>
 			<version>1.2.0</version>
 		</dependency>
+
 	</dependencies>
 	<build>
 		<plugins>

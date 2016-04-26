@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board">
+	<select id="view" parameterType="long" resultType="boardvo">
+	<![CDATA[
+	SELECT b.title, b.content, b.reg_date, u.name, b.group_no, b.order_no, b.depth, b.hit, b.user_no 
+	FROM board b,user u 
+	WHERE b.no = #{no} AND b.user_no = u.no
+	]]>
+	</select>
+	<update id="updateHit" parameterType="long">
+	<![CDATA[
+	UPDATE board b SET b.hit=b.hit+1 WHERE b.no = #{no}
+	]]>
+	</update>
+	<select id="count" parameterType="string" resultType="long">
+	<![CDATA[
+	SELECT COUNT(*) 
+	FROM board 
+	WHERE title like #{kwd} OR content like #{kwd}
+	]]>
+	</select>
+	<select id="searchList" parameterType="map" resultType="boardvo">
+	<![CDATA[
+	SELECT b.no, b.title, b.content, b.reg_date, u.name, b.group_no, b.order_no, b.depth, b.hit, b.user_no 
+	FROM board b,user u 
+	WHERE b.user_no = u.no AND (title like CONCAT('%',#{kwd},'%') OR content like CONCAT('%',#{kwd},'%'))
+	ORDER BY b.group_no DESC, b.order_no 
+	LIMIT #{num}, 5
+	]]>
+	</select>
+	<update id="updateRe" parameterType="boardvo">
+	<![CDATA[
+	UPDATE board SET order_no=order_no+1 WHERE group_no=#{group_no} and order_no>#{order_no}
+	]]>
+	</update>
+	<insert id="insert" parameterType="boardvo">
+	<![CDATA[
+	INSERT INTO board VALUES(null, #{title}, #{content}, now(), #{user_no}, (select ifnull( max( group_no ), 0 ) + 1 FROM board AS b), 1, 0, 0)
+	]]>
+	</insert>
+	<insert id="insert2" parameterType="boardvo">
+	<![CDATA[
+	INSERT INTO board VALUES(null, #{title}, #{content}, now(), #{user_no}, #{group_no}, #{order_no}, #{depth}, 0)
+	]]>
+	</insert>
+	<update id="modifyUpdate" parameterType="boardvo">
+	<![CDATA[
+	UPDATE board AS b 
+	SET b.title=#{title}, b.content=#{content}, b.reg_date=now() 
+	WHERE b.no=#{no} AND b.user_no= #{user_no}
+	]]>
+	</update>
+
+	<select id="maxdepth" parameterType="boardvo" resultType="long">
+	<![CDATA[
+	SELECT MAX(depth) 
+	FROM board 
+	WHERE group_no = #{group_no}
+	]]>
+	</select>
+
+	<delete id="delete" parameterType="boardvo">
+<![CDATA[
+DELETE 
+FROM board  
+WHERE no= #{no} And user_no = #{user_no} AND depth = #{depth}
+]]>
+	</delete>
+</mapper>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+	
+	<!-- guestbook.xml의 resultType -->
+	<typeAlias type="com.estsoft.mysite.vo.GuestBookVo" alias="guestbookvo"/>
+		<typeAlias type="com.estsoft.mysite.vo.BoardVo" alias="boardvo"/>
+	</typeAliases>
+	<mappers>
+		<!-- sql같은 경우에는 file 하나에 해결할 수 있지만, user/guestbook등으로 나누면 섞이지 않아서 좋겠지? -->
+<mapper resource="mybatis/mappers/user.xml"></mapper>
+<mapper resource="mybatis/mappers/guestbook.xml"></mapper>
+<mapper resource="mybatis/mappers/board.xml"></mapper>
+	</mappers>
+</configuration>

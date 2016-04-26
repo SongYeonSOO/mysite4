@@ -166,11 +166,11 @@
 			modal : true,
 			buttons : {
 				"삭제" : function() {
-					this.reset();
 					console.log(this);
 					console.log("no : " + $("#del-no").val() + "   password : " + $("#del-password").val());
 					var no = $("#del-no").val();
 					var passwd = $("#del-password").val();
+					this.reset();
 					console.log("no : " + no + "   password : " + passwd);
 					$.ajax({
 						url : "${pageContext.request.contextPath}/guestbook/delete",

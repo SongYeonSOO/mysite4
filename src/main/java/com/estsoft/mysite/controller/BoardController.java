@@ -25,13 +25,15 @@ public class BoardController {
 	private BoardService boardService;
 
 	@RequestMapping("")
-//	@ResponseBody
 	public String list(@RequestParam(value = "kwd", required = true, defaultValue = "") String kwd,
-			@RequestParam(value = "page", required = true, defaultValue = "1L") Long page, Model model) {
+			@RequestParam(value = "page", required = true, defaultValue = "1") Long page, Model model) {
+
+		Map<String, Object> map = boardService.SearchList(kwd, page);
 		
-		List<BoardVo> list = boardService.SearchList(kwd, page);
-		model.addAttribute("list",list);
-		
+		model.addAttribute("pageinfo", map.get("pageinfo"));
+		model.addAttribute("boardno",map.get("boardno"));
+		model.addAttribute("list",map.get("list"));
+	
 		return "board/list";	
 		
 	}

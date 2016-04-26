@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="guestbook">
+
+<!-- sql query를 넣자 -->
+<!-- sql select -> resultset의 type을 알 수 있는 위치를 적어줌 -> setter를 알아서 불러서 넣는다 DATE_FORMAT같은건 Alias가 필요함 -->
+<!-- configuration.xml에 resultType alias해놓음 -->
+<select id="selectList" resultType="guestbookvo">
+<!-- SQL QUERY 중에 괄호<> 발생 대비! ![CDATA[]]이용 -->
+<![CDATA[
+SELECT no, name, DATE_FORMAT(reg_date, '%Y-%m-%d %h:%i:%s') AS reg_date, message 
+FROM guestbook 
+ORDER BY reg_date desc
+]]>
+</select>
+
+<insert id="insert" parameterType="guestbookvo">
+<![CDATA[
+INSERT INTO guestbook VALUES(null, #{name}, now(), #{message}, password(#{passwd}))
+]]>
+<selectKey keyProperty="no" resultType="long" order="AFTER">SELECT LAST_INSERT_ID()</selectKey>
+</insert>
+
+<select id="selectByNo" parameterType="long" resultType="guestbookvo">
+<![CDATA[
+SELECT no, name, DATE_FORMAT(reg_date, '%Y-%m-%d %h:%i:%s') AS reg_date, message 
+FROM guestbook
+WHERE no= #{no}
+]]>
+</select>
+<select id="selectByPage" parameterType="long" resultType="guestbookvo">
+<![CDATA[
+SELECT no, name, DATE_FORMAT(reg_date, '%Y-%m-%d %h:%i:%s') as reg_date, message 
+FROM guestbook 
+ORDER BY reg_date desc 
+LIMIT #{num} , 5
+]]>
+</select>
+<delete id="delete" parameterType="guestbookvo" >
+<![CDATA[
+DELETE FROM guestbook WHERE no=#{no} AND passwd= password(#{passwd})
+]]>
+</delete>
+<delete id="delete2" parameterType="map">
+<![CDATA[
+DELETE FROM guestbook WHERE no=#{no} AND passwd= password(#{passwd})
+]]>
+</delete>
+
+ </mapper>
+
