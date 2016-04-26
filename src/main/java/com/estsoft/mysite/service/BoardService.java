@@ -23,7 +23,7 @@ public class BoardService {
 		return;
 	}
 	
-	public BoardVo getList(Long no, boolean isview){
+	public BoardVo getView(Long no, boolean isview){
 		return boardDao.view(no, isview);
 	}
 	
@@ -32,6 +32,7 @@ public class BoardService {
 		}
 	public void ModifyUpdate(BoardVo vo){
 		boardDao.ModifyUpdate(vo);	
+		return;
 		}
 
 }

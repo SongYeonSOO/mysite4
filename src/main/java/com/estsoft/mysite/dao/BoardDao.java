@@ -205,7 +205,7 @@ public class BoardDao {
 						+ " ORDER BY b.group_no DESC, b.order_no"
 						+ " LIMIT ?, 5";
 
-				System.out.println(sql);
+	//			System.out.println(sql);
 				pstmt = conn.prepareStatement(sql);
 				
 				pstmt.setLong(1, (Long)(page-1)*5);

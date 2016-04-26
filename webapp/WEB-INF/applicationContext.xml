@@ -2,8 +2,9 @@
 
 <!-- listener 등록 에 쓴 대로 applicationContext.xml을 만들어준다 ; root application 
 	context를 쓰려고! -->
-	
-<!-- link들 : 문법이 저장되어있는 schema ~schema도 다른걸 할 수 있대 (보통 singleton);  인터넷이 안되면 error남 -->
+
+<!-- link들 : 문법이 저장되어있는 schema ~schema도 다른걸 할 수 있대 (보통 singleton); 인터넷이 안되면 
+	error남 -->
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:context="http://www.springframework.org/schema/context"
@@ -20,7 +21,8 @@
         http://www.springframework.org/schema/task
         http://www.springframework.org/schema/task/spring-task-3.0.xsd">
 
-	<!-- controller면 @Controller  이건 -servlet.xml에서 함 -servlet.xml에는 anootation지정없이 default로 함 -->
+	<!-- controller면 @Controller 이건 -servlet.xml에서 함 -servlet.xml에는 anootation지정없이 
+		default로 함 -->
 	<!-- 그 이외의 것은 여기에 있다고 보면될듯 -->
 
 	<!-- architecture : application의 구조!! 기능별로 나눠놓은것 -->
@@ -32,7 +34,7 @@
 
 
 		<!-- 이거 대신에 annotation이 달려있는 것으로 찾을 것이다 라는 것이지!!!!! -->
-	
+
 		<!-- repository(dao)면 @Repository -->
 		<context:include-filter type="annotation"
 			expression="org.springframework.stereotype.Repository" />
@@ -43,8 +45,18 @@
 		<context:include-filter type="annotation"
 			expression="org.springframework.stereotype.Component" />
 	</context:component-scan>
-	
-	 <bean id="mySQLWebDbConnection" class="com.estsoft.DB.MySQLWebDBConnection"></bean>
+
+	<bean id="mySQLWebDbConnection" class="com.estsoft.DB.MySQLWebDBConnection"></bean>
+
+	<!-- Connection Pool DataSource -->
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/webdb" />
+		<property name="username" value="webdb" />
+		<property name="password" value="webdb" />
+
+	</bean>
 
 </beans> 
 	

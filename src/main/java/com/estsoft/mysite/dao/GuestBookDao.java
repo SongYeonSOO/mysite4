@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -12,11 +14,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import com.estsoft.DB.DBConnection;
+import com.estsoft.mysite.exception.InsertSQLException;
 import com.estsoft.mysite.vo.GuestBookVo;
 @Repository
 public class GuestBookDao {
+/*	@Autowired
+	private DBConnection dbConnection;*/
 	@Autowired
-	private DBConnection dbConnection;
+	private DataSource datasource;
 	public GuestBookDao() {
 		
 	}
@@ -33,7 +38,7 @@ public class GuestBookDao {
 		ResultSet rs = null;
 		try {
 
-			conn = dbConnection.getConnection();
+			conn = datasource.getConnection();
 			String sql = "INSERT INTO guestbook VALUES(null, ?, now(), ?, password(?))";
 
 			// System.out.println(vo.getFirstName());
@@ -49,7 +54,7 @@ public class GuestBookDao {
 			if (rs.next()) {
 				no = rs.getLong(1);
 			}
-		} catch (SQLException ex) {
+		} catch (InsertSQLException ex) {
 			System.out.println("Error" + ex);
 			ex.printStackTrace();
 		} finally {
@@ -67,7 +72,7 @@ public class GuestBookDao {
 				return 0;
 			}
 
-			conn = dbConnection.getConnection();
+			conn = datasource.getConnection();
 			String sql = "DELETE FROM guestbook WHERE no=? AND passwd= password(?)";
 
 			// System.out.println(vo.getFirstName());
@@ -90,7 +95,7 @@ public class GuestBookDao {
 		Statement stmt = null;
 		ResultSet rs = null;
 		try {
-			conn = dbConnection.getConnection();
+			conn = datasource.getConnection();
 			stmt = conn.createStatement();
 
 			String sql = "SELECT no, name, DATE_FORMAT(reg_date, '%Y-%m-%d %h:%i:%s'), message " + "FROM guestbook "
@@ -140,7 +145,7 @@ public class GuestBookDao {
 		Statement stmt = null;
 		ResultSet rs = null;
 		try {
-			conn = dbConnection.getConnection();
+			conn = datasource.getConnection();
 			stmt = conn.createStatement();
 
 			String sql = "SELECT no, name, DATE_FORMAT(reg_date, '%Y-%m-%d %h:%i:%s'), message " + "FROM guestbook "
@@ -186,7 +191,6 @@ public class GuestBookDao {
 
 	}
 
-	//// checkkkkkkkkkkkkkkkkkkkkkkkk!
 	public GuestBookVo get(Long no) {
 
 		GuestBookVo vo = null;
@@ -194,7 +198,7 @@ public class GuestBookDao {
 		Statement stmt = null;
 		ResultSet rs = null;
 		try {
-			conn = dbConnection.getConnection();
+			conn = datasource.getConnection();
 			stmt = conn.createStatement();
 
 			String sql = "SELECT no, name, DATE_FORMAT(reg_date, '%Y-%m-%d %h:%i:%s'), message " + "FROM guestbook "
