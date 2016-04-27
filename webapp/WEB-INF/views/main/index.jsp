@@ -21,7 +21,7 @@
 			<div id="content">
 				<div id="site-introduction">
 					<img id="profile" src="/mysite3/assets/images/FullSizeRender.jpg">
-					<h2>안녕하세요. 송연수의  mysite에 오신 것을 환영합니다.</h2>
+					<h2>배고프다</h2>
 					<p>
 						돈까스먹고싶다. <br> <br> <a href="/mysite3/guestbook">방명록</a>에 글 남기기<br>
 					</p>

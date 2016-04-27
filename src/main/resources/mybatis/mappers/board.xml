@@ -18,12 +18,12 @@
 	<![CDATA[
 	SELECT COUNT(*) 
 	FROM board 
-	WHERE title like #{kwd} OR content like #{kwd}
+	WHERE (title like CONCAT('%',#{kwd},'%') OR content like CONCAT('%',#{kwd},'%'))
 	]]>
 	</select>
 	<select id="searchList" parameterType="map" resultType="boardvo">
 	<![CDATA[
-	SELECT b.no, b.title, b.content, b.reg_date, u.name, b.group_no, b.order_no, b.depth, b.hit, b.user_no 
+	SELECT b.no, b.title, b.content, b.reg_date, b.group_no, b.order_no, b.depth, b.hit, b.user_no, u.name as user_name
 	FROM board b,user u 
 	WHERE b.user_no = u.no AND (title like CONCAT('%',#{kwd},'%') OR content like CONCAT('%',#{kwd},'%'))
 	ORDER BY b.group_no DESC, b.order_no 
@@ -65,7 +65,7 @@
 <![CDATA[
 DELETE 
 FROM board  
-WHERE no= #{no} And user_no = #{user_no} AND depth = #{depth}
+WHERE no= #{no} And group_no = #{group_no} AND depth = #{depth}
 ]]>
 	</delete>
 </mapper>

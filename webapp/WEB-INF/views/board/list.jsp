@@ -40,7 +40,7 @@
 								<c:when test="${vo.depth==0}">
 									<td>${requestScope.boardno-status.index}</td>
 									<td style="text-align: left; padding-left: 0px"><a
-										href="/mysite3/board/view&no=${vo.no}">${vo.title}</a></td>
+										href="/mysite3/board/view?no=${vo.no}">${vo.title}</a></td>
 									<td>${vo.user_name}</td>
 									<td>${vo.hit}</td>
 									<td>${vo.reg_date}</td>
@@ -49,7 +49,7 @@
 									<td>${requestScope.boardno-status.index}</td>
 									<td style="text-align:left; padding-left:${vo.depth*20}px"><img
 										src="${pageContext.request.contextPath}/assets/images/reply.png"><a
-										href="/mysite3/board/view&no=${vo.no}">${vo.title}</a></td>
+										href="/mysite3/board/view?no=${vo.no}">${vo.title}</a></td>
 									<td>${vo.user_name}</td>
 									<td>${vo.hit}</td>
 									<td>${vo.reg_date}</td>

@@ -26,12 +26,12 @@ public class BoardService {
 	}
 	
 	public BoardVo getView(Long no, boolean isview){
+		System.out.println("Service getView ok");
 		return boardDao.view(no, isview);
 	}
 	
 	public Map<String, Object> SearchList(String kwd, Long page){
 		
-		System.out.println("Service SearchList kwd:"+kwd+"pg"+page);
 		
 		//page에 이용!!!
 		 int COUNT_LIST = 5;
@@ -47,6 +47,7 @@ public class BoardService {
 		}
 		
 		Long boardno = boardDao.Count(kwd)-(currentpage-1)*COUNT_PAGE;
+		System.out.println("1231231231" + boardno);
 		
 		Map<String, Long> pageinfo = new HashMap<String, Long>();
 		pageinfo.put("beginpage", beginpage);
@@ -56,8 +57,7 @@ public class BoardService {
 		
 		List<BoardVo> list = boardDao.SearchList(kwd, page);
 		
-		System.out.println("Servicelist"+list);
-		
+	
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("pageinfo", pageinfo);
 		map.put("boardno", boardno);

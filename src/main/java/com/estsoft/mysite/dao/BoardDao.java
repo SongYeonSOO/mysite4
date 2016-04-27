@@ -39,7 +39,12 @@ public class BoardDao {
 	 */
 	// 게시글 보자
 	public BoardVo view(Long no, boolean isview) {
+		System.out.println("Dao getView ok");
+
 		BoardVo boardVo = sqlSession.selectOne("board.view", no);
+		
+		System.out.println("Dao"+boardVo);
+
 		if (isview == true) {
 			boardVo.setHit(boardVo.getHit() + 1);
 			UpdateHit(no);
@@ -61,14 +66,13 @@ public class BoardDao {
 
 	// 게시판 리스트를 만들자
 	public List<BoardVo> SearchList(String kwd, Long page) {
-		System.out.println("BoardDao SearchList kwd:"+kwd+"pg"+page);
-
+		
 		Long num = (page - 1) * 5;
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("kwd", kwd);
 		map.put("num", num);
 		List<BoardVo> list = sqlSession.selectList("board.searchList", map);
-		System.out.println("boardDaoSearchList:"+list);
+		System.out.println("list"+list);
 		return list;
 
 	}
@@ -85,10 +89,13 @@ public class BoardDao {
 	public void insert(BoardVo vo) {
 
 		if (vo.getOrder_no() == null) {
+			System.out.println("1");
 			sqlSession.insert("board.insert", vo);
 		} else {
+			System.out.println(vo.getDepth());
 			vo.setDepth(vo.getDepth() + 1);
 			sqlSession.insert("board.insert2", vo);
+
 		}
 	}
 

@@ -41,53 +41,71 @@ public class BoardController {
 
 	// isview
 	@RequestMapping("/view")
-	public String view(@RequestParam(value = "no", required = true, defaultValue = "-1") Long no) {
+	public String view(@RequestParam(value = "no", required = true, defaultValue = "-1") Long no, Model model,HttpSession session) {
+		
+		BoardVo vo=boardService.getView(no, true);
+		vo.setNo(no);
+		
+		model.addAttribute("vo",vo);
 		return "board/view";
 	}
 
 	@RequestMapping("/boardmodifyform")
-	public String boardModifyForm() {
+	public String boardModifyForm(@ModelAttribute BoardVo vo,Model model) {
+		model.addAttribute("vo", vo);
 		return "board/modify";
 	}
-
+	
 	@RequestMapping("/boardmodify")
-	@ResponseBody
-	public Map<String, Object> boardModify(@ModelAttribute BoardVo vo,HttpSession session) {
+	public String boardModify(@ModelAttribute BoardVo vo,HttpSession session) {
 		UserVo userVo = (UserVo)session.getAttribute("authUser");
 		vo.setUser_no(userVo.getNo());		
-		boardService.ModifyUpdate(vo);
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("result", "success");
-		// map.put("data", delete);
-		return map;
-	}
 
+		System.out.println("BC: VO"+vo);
+		
+		BoardVo boardVo=boardService.getView(vo.getNo(), false);
+		
+		boardVo.setNo(vo.getNo());
+		boardVo.setTitle(vo.getTitle());
+		boardVo.setContent(vo.getContent());
+		
+		System.out.println("BC : boardVo"+boardVo);
+		boardService.ModifyUpdate(boardVo);
+
+		return "redirect:/board";
+	}
+	
 	@RequestMapping("/writeform")
-	public String writeForm() {
-
+	public String writeForm(@RequestParam(value = "no", required = true, defaultValue = "-1") Long no, Model model)  {
+		model.addAttribute("no",no);
 		return "board/write";
-	}
-
+}
 	@RequestMapping("/write")
-	@ResponseBody
-	public Map<String, Object> write(@ModelAttribute BoardVo vo, HttpSession session) {
+		public String write(@RequestParam(value = "no", required = true, defaultValue = "-1") Long no, HttpSession session,@RequestParam(value = "title", required = true, defaultValue = "") String title,@RequestParam(value = "content", required = true, defaultValue = "") String content)  {
 		UserVo userVo = (UserVo)session.getAttribute("authUser");
+
+		BoardVo vo = new BoardVo();
 		vo.setUser_no(userVo.getNo());
+		vo.setUser_name(userVo.getName());
+		
+		if(no !=-1){
+		BoardVo superVo=boardService.getView(no, false);
+		vo.setOrder_no(superVo.getOrder_no());
+		vo.setDepth(superVo.getDepth());
+		vo.setGroup_no(superVo.getGroup_no());
+		}
+		
+		vo.setTitle(title);
+		vo.setContent(content);
+
+		System.out.println("Vo"+vo);
 		boardService.insert(vo);
-		boardService.SearchList("", 1L);
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("result", "success");
-		map.put("data", vo);
-		return map;
+		return "redirect:/board";
 	}
 
 	@RequestMapping("/delete")
-	@ResponseBody
-	public Map<String, Object> delete(@ModelAttribute BoardVo vo) {
+	public String delete(@ModelAttribute BoardVo vo)  {
 		boardService.delete(vo);
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("result", "success");
-		// map.put("data", delete);
-		return map;
+		return "redirect:/board";
 	}
 }

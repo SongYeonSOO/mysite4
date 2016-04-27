@@ -56,8 +56,8 @@ public class GuestBookDao {
 		map.put("passwd",vo.getPasswd());
 
 		int countDeleted = sqlSession.delete("geustbook.delete2",map);
-*/		
-		return 1;
+*/		System.out.println("countDeleted: "+countDeleted);
+		return countDeleted;
 	}
 
 	public List<GuestBookVo> getList() {
