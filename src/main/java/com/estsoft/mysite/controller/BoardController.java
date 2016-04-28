@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.estsoft.mysite.annotation.Auth;
 import com.estsoft.mysite.service.BoardService;
 import com.estsoft.mysite.vo.BoardVo;
 import com.estsoft.mysite.vo.UserVo;
@@ -75,15 +76,16 @@ public class BoardController {
 		return "redirect:/board";
 	}
 	
+
 	@RequestMapping("/writeform")
 	public String writeForm(@RequestParam(value = "no", required = true, defaultValue = "-1") Long no, Model model)  {
 		model.addAttribute("no",no);
 		return "board/write";
 }
+	@Auth
 	@RequestMapping("/write")
 		public String write(@RequestParam(value = "no", required = true, defaultValue = "-1") Long no, HttpSession session,@RequestParam(value = "title", required = true, defaultValue = "") String title,@RequestParam(value = "content", required = true, defaultValue = "") String content)  {
 		UserVo userVo = (UserVo)session.getAttribute("authUser");
-
 		BoardVo vo = new BoardVo();
 		vo.setUser_no(userVo.getNo());
 		vo.setUser_name(userVo.getName());

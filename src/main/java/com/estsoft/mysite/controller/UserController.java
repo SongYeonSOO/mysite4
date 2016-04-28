@@ -49,7 +49,7 @@ public class UserController {
 	public String loginform() {
 		return "user/loginform";
 	}
-
+/*
 	@RequestMapping("/login")
 	public String login(@ModelAttribute UserVo vo, HttpSession session) {
 		// 조만간 session처리도 배울 것이다
@@ -64,8 +64,8 @@ public class UserController {
 		return "redirect:/main";
 
 	}
-
-	// 조만간 session처리도 배울 것이다
+*/
+/*	// 조만간 session처리도 배울 것이다
 
 	@RequestMapping("/logout")
 	public String logout(@ModelAttribute UserVo vo, HttpSession session) {
@@ -80,7 +80,7 @@ public class UserController {
 		return "redirect:/main";
 
 	}
-	
+*/	
 	@RequestMapping("/checkemail")
 	@ResponseBody
 	public Map<String,Object> checkEmail(@RequestParam(value="email", required=true, defaultValue="")String email) {
