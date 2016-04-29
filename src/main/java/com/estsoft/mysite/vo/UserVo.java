@@ -1,9 +1,19 @@
 package com.estsoft.mysite.vo;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class UserVo {
 private Long no;
+
+//name이 null이면 안된다는 것
+//(message="~") defaultmessage바꾸기!
+@NotEmpty(message="name!!!!!!!!!")
 private String name;
+@NotEmpty
+@Email	(message="email!!!!!!!!!!!")//email인지 체크
 private String email;
+@NotEmpty(message="password!!!!!!!")
 private String passwd;
 private String gender;
 public Long getNo() {

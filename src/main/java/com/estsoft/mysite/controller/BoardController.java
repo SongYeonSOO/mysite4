@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.estsoft.mysite.annotation.Auth;
+import com.estsoft.mysite.annotation.AuthUser;
 import com.estsoft.mysite.service.BoardService;
 import com.estsoft.mysite.vo.BoardVo;
 import com.estsoft.mysite.vo.UserVo;
@@ -78,29 +79,27 @@ public class BoardController {
 	
 
 	@RequestMapping("/writeform")
-	public String writeForm(@RequestParam(value = "no", required = true, defaultValue = "-1") Long no, Model model)  {
-		model.addAttribute("no",no);
+	public String writeForm(@ModelAttribute BoardVo vo,Model model)  {
+		model.addAttribute("vo",vo);
 		return "board/write";
 }
 	@Auth
 	@RequestMapping("/write")
-		public String write(@RequestParam(value = "no", required = true, defaultValue = "-1") Long no, HttpSession session,@RequestParam(value = "title", required = true, defaultValue = "") String title,@RequestParam(value = "content", required = true, defaultValue = "") String content)  {
-		UserVo userVo = (UserVo)session.getAttribute("authUser");
-		BoardVo vo = new BoardVo();
-		vo.setUser_no(userVo.getNo());
-		vo.setUser_name(userVo.getName());
+	//@AuthUser로 받는 parameter는 반드시 인증된 사용자가 넘어오게된다
+		public String write(@AuthUser UserVo authUser,HttpSession session, @ModelAttribute BoardVo vo)  {
+		/*UserVo userVo = (UserVo)session.getAttribute("authUser");*/
+		System.out.println("write:::::::::::::::::::::::::::::auth::::::::"+authUser);
+		System.out.println("write:::::::::::::::::::::::::::::vo::::::::"+vo);
+		vo.setUser_no(authUser.getNo());
+		vo.setUser_name(authUser.getName());
 		
-		if(no !=-1){
-		BoardVo superVo=boardService.getView(no, false);
+		if(vo.getNo()!= null){
+		BoardVo superVo=boardService.getView(vo.getNo(), false);
 		vo.setOrder_no(superVo.getOrder_no());
 		vo.setDepth(superVo.getDepth());
 		vo.setGroup_no(superVo.getGroup_no());
 		}
 		
-		vo.setTitle(title);
-		vo.setContent(content);
-
-		System.out.println("Vo"+vo);
 		boardService.insert(vo);
 		return "redirect:/board";
 	}
