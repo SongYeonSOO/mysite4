@@ -11,7 +11,8 @@ public class MyInterceptor2 extends HandlerInterceptorAdapter{
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		// TODO Auto-generated method stub
-		System.out.println("MyInterceptor2.PreHandle.false");
-		return false;
+		System.out.println("MyInterceptor2.PreHandle.true");
+	//	return false;
+		return true;
 	}
 }

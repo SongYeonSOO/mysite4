@@ -95,6 +95,13 @@
 			<version>1.2.0</version>
 		</dependency>
 
+		<!-- aop 연습 -->
+		<!-- spring aspect -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>

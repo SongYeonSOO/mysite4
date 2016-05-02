@@ -65,12 +65,12 @@
 		<property name="configLocation" value="classpath:mybatis/configuration.xml" />
 	</bean>
 
-	<!-- MyBatis SqlSessionTemplate  ; 생성자에서 초기화 (constructor-arg로 sqlsessionfactory에서 sqlsession을 만듬) dao에서는 sqlSession을 쓸 것임.-->
+	<!-- MyBatis SqlSessionTemplate ; 생성자에서 초기화 (constructor-arg로 sqlsessionfactory에서 
+		sqlsession을 만듬) dao에서는 sqlSession을 쓸 것임. -->
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg index="0" ref="sqlSessionFactory" />
 	</bean>
 
-
-
+	<aop:aspectj-autoproxy />
 </beans> 
 	

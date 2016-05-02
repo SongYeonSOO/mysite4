@@ -90,7 +90,6 @@
 		</mvc:interceptor>
 	</mvc:interceptors>
 
-
 	<!-- MessageSource -->
 
 	<bean id="messageSource"
@@ -101,6 +100,6 @@
 			</list>
 		</property>
 	</bean>
-
+	
 
 </beans>

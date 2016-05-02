@@ -10,6 +10,7 @@ import com.estsoft.mysite.vo.GuestBookVo;
 
 @Service
 public class GuestBookService {
+	
 	@Autowired
 	private GuestBookDao guestbookDao;
 
