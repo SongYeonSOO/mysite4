@@ -14,8 +14,6 @@
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/assets/js/jquery/jquery-1.9.0.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-
-
 <script type="text/javascript">
 	var page = 1;
 	var dialogDelete = null;

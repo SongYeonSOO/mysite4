@@ -51,7 +51,7 @@ public class AuthLoginInterceptor extends HandlerInterceptorAdapter {
 		UserVo authUser = userService.login(userVo);
 
 		if(authUser == null){
-			//request.getContextPath() ; -> /mysite3까지임 
+			//request.getContextPath() ; -> /mysite4까지임 
 			response.sendRedirect(request.getContextPath()+"/user/loginform");
 		
 			//의미상 끝났지만 그래도 false를 return 써주시오

@@ -46,7 +46,7 @@
 
 	<context:annotation-config />
 	<!-- "com.estsoft.hellospring" -->
-	<context:component-scan base-package="com.estsoft.mysite" />
+	<context:component-scan base-package="com.estsoft.mysite.controller" />
 	<!-- 이 code 밑부분부터는 scanning시작함 scanning이 끝나면 handler mapping에게 속성(?)에 맞는 
 		method를 스캐닝하라고 함 그리고 annotation table을 만듬 doGet() code안에는 controller method의 
 		parameter에 맞는 걸 처리함 그 method의 return type에 따라서 (string/modelandview) 다르게 

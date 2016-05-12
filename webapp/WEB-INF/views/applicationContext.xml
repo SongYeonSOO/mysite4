@@ -7,7 +7,7 @@
 	error남 -->
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
@@ -26,12 +26,11 @@
 	<!-- 그 이외의 것은 여기에 있다고 보면될듯 -->
 
 	<!-- architecture : application의 구조!! 기능별로 나눠놓은것 -->
-	<!-- 트랜잭션 관리자 활성화 : @ annotation을 쓸 수 있도록 한 것임 -->
-	<tx:annotation-driven/>
+
 
 	<context:annotation-config />
 	<!-- scanning할 base- package 설정 -->
-	<context:component-scan base-package="com.estsoft.mysite.service, com.estsoft.mysite.dao, com.estsoft.mysite.repository">
+	<context:component-scan base-package="com.estsoft.mysite">
 
 
 		<!-- 이거 대신에 annotation이 달려있는 것으로 찾을 것이다 라는 것이지!!!!! -->
@@ -71,46 +70,6 @@
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg index="0" ref="sqlSessionFactory" />
 	</bean>
-
-
-
-
-	<!-- scanning @Repository, @Service, @Component -->
-	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-		<property name="dataSource" ref="dataSource" />
-	</bean>
-	
-	<!-- JPA 예외를 스프링 예외로 변환 -->
-	<bean
-		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
-		
-		
-	<!-- JPA 설정 ( 엔티티 매니저 팩토리 등록 ) -->
-	<bean id="entityManagerFactory"
-		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-
-		<!-- @Entity 탐색 시작 위치 -->
-		<property name="packagesToScan" value="com.estsoft.mysite.domain" />
-
-		<!-- 하이버네이트 구현체 사용 -->
-		<property name="jpaVendorAdapter">
-			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
-		</property>
-
-		<!-- 하이버네이트 상세 설정 -->
-		<property name="jpaProperties">
-			<props>
-				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop> <!-- 방언 -->
-				<prop key="hibernate.show_sql">true</prop>                  			 		<!-- SQL 보기 -->
-				<prop key="hibernate.format_sql">true</prop>               				  		<!-- SQL 정렬해서 보기 -->
-				<prop key="hibernate.use_sql_comments">true</prop>                              <!-- SQL 코멘트 보기 -->
-				<prop key="hibernate.id.new_generator_mappings">true</prop>                     <!-- 새 버전의 ID 생성 옵션 -->
-				<prop key="hibernate.hbm2ddl.auto">create</prop>                                <!-- DDL 자동 생성 -->
-			</props>
-		</property>
-	</bean>
-			
 
 	<aop:aspectj-autoproxy />
 </beans> 
