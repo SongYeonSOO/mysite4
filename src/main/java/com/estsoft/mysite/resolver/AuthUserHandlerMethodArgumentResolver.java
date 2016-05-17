@@ -11,7 +11,7 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
 import com.estsoft.mysite.annotation.AuthUser;
-import com.estsoft.mysite.vo.UserVo;
+import com.estsoft.mysite.domain.User;
 
 public class AuthUserHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
 
@@ -30,7 +30,7 @@ public class AuthUserHandlerMethodArgumentResolver implements HandlerMethodArgum
 		
 		//check parameter type
 	//왼쪽이 객체가 아니니까 instanceof가 아님
-		if(parameter.getParameterType().equals(UserVo.class)==false){return false;}
+		if(parameter.getParameterType().equals(User.class)==false){return false;}
 		return true;
 
 	}

@@ -3,8 +3,8 @@
 
 <div id="navigation">
 	<ul>
-		<li><a href="/mysite3/main">YeonSoo Song</a></li>
-		<li><a href="/mysite3/guestbook/index">방명록</a></li>
-		<li><a href="/mysite3/board">게시판</a></li>
+		<li><a href="/mysite4/main">YeonSoo Song</a></li>
+		<li><a href="/mysite4/guestbook/index">방명록</a></li>
+		<li><a href="/mysite4/board">게시판</a></li>
 	</ul>
 </div>

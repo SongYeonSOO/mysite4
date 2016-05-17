@@ -66,14 +66,7 @@
 
 	<!-- Interceptors -->
 	<mvc:interceptors>
-		<mvc:interceptor>
-			<mvc:mapping path="/board/**" />
-			<bean class="com.estsoft.mysite.interceptor.MyInterceptor" />
-		</mvc:interceptor>
-		<mvc:interceptor>
-			<mvc:mapping path="/guestbook/**" />
-			<bean class="com.estsoft.mysite.interceptor.MyInterceptor2" />
-		</mvc:interceptor>
+
 		<mvc:interceptor>
 			<mvc:mapping path="/user/login" />
 			<bean class="com.estsoft.mysite.interceptor.AuthLoginInterceptor" />
@@ -100,6 +93,6 @@
 			</list>
 		</property>
 	</bean>
-	
+
 
 </beans>

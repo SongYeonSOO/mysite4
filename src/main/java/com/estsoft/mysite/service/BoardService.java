@@ -4,30 +4,31 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.estsoft.mysite.dao.BoardDao;
-import com.estsoft.mysite.vo.BoardVo;
+import com.estsoft.mysite.domain.Board;
+import com.estsoft.mysite.repository.BoardRepository;
 
+@Transactional
 @Service
 public class BoardService {
 	@Autowired
-	private BoardDao boardDao;
+	private BoardRepository boardR;
 	
-	public void insert(BoardVo vo) {
+	public void insert(Board board) {
 
-		boardDao.insert(vo);
-		return ;
+		boardR.save(board);
 	}
-	public void delete(BoardVo vo){
-		boardDao.delete(vo);
-		return;
+	public void delete(Board board){
+		boardR.delete(board);
 	}
 	
-	public BoardVo getView(Long no, boolean isview){
-		System.out.println("Service getView ok");
-		return boardDao.view(no, isview);
+	public Board getView(Long no, boolean isview){
+		return boardR.view(no, isview);
 	}
 	
 	public Map<String, Object> SearchList(String kwd, Long page){
@@ -38,7 +39,7 @@ public class BoardService {
 		 int COUNT_PAGE = 5;
 		Long currentpage = page;
 		Long beginpage = currentpage - ((currentpage-1)%COUNT_PAGE);
-		Long totalpage = (long) Math.ceil(boardDao.Count(kwd)/(float)COUNT_PAGE);
+		Long totalpage = (long) Math.ceil(boardR.Count(kwd)/(float)COUNT_PAGE);
 		Long maxpage = null;
 		if(totalpage>=beginpage+COUNT_PAGE-1){
 			maxpage = beginpage+COUNT_PAGE-1;
@@ -46,7 +47,7 @@ public class BoardService {
 			maxpage = totalpage;
 		}
 		
-		Long boardno = boardDao.Count(kwd)-(currentpage-1)*COUNT_PAGE;
+		Long boardno = boardR.Count(kwd)-(currentpage-1)*COUNT_PAGE;
 		System.out.println("1231231231" + boardno);
 		
 		Map<String, Long> pageinfo = new HashMap<String, Long>();
@@ -55,7 +56,7 @@ public class BoardService {
 		pageinfo.put("maxpage", maxpage);
 		pageinfo.put("currentpage", currentpage);		
 		
-		List<BoardVo> list = boardDao.SearchList(kwd, page);
+		List<Board> list = boardR.SearchList(kwd, page);
 		
 	
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -65,8 +66,8 @@ public class BoardService {
 		return map;
 		}
 	
-	public void ModifyUpdate(BoardVo vo){
-		boardDao.ModifyUpdate(vo);	
+	public void ModifyUpdate(Board board){
+		boardR.ModifyUpdate(board);	
 		return;
 		}
 

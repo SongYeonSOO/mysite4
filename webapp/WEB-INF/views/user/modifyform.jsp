@@ -2,10 +2,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-<%@page import="com.estsoft.mysite.vo.UserVo"%>
+<%@page import="com.estsoft.mysite.domain.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%UserVo userVo = (UserVo)request.getAttribute("authUser");
+<%User user = (User)request.getAttribute("authUser");
 %>
 
 <!doctype html>
@@ -13,7 +13,7 @@
 <head>
 <title>mysite</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-<link href="/mysite3/assets/css/user.css" rel="stylesheet"
+<link href="/mysite4/assets/css/user.css" rel="stylesheet"
 	type="text/css">
 </head>
 <body>
@@ -22,25 +22,25 @@
 		<div id="content">
 			<div id="user">
 
-				<form id="modify-form" name="modifyForm" method="post" action="/mysite3/user/modify">
+				<form id="modify-form" name="modifyForm" method="post" action="/mysite4/user/modify">
 				<input type='hidden' name="no" value=${requestScope.authUser.no}>
 									<label class="block-label" for="name">이름</label> <input id="name"
 						name="name" type="text" value=${requestScope.authUser.name}> <label
-						class="block-label">패스워드</label> <input name="passwd"
+						class="block-label">패스워드</label> <input name="password"
 						type="password" value="">
 
 					<fieldset>
 						<legend>성별</legend>
 						<c:choose>
 						<c:when test= "${'F'==requestScope.authUser.gender}">
-						<label>여</label> <input type="radio" name="gender" value="F"
+						<label>여</label> <input type="radio" name="gender" value="FEMALE"
 							checked="checked"> <label>남</label> <input type="radio"
-							name="gender" value="M">
+							name="gender" value="MALE">
 					</c:when>
 					<c:otherwise>
 					<label>여</label> <input type="radio" name="gender"
-						value="F"> <label>남</label> <input
-						type="radio" name="gender" value="M" checked="checked">
+						value="FEMALE"> <label>남</label> <input
+						type="radio" name="gender" value="MALE" checked="checked">
 
 					</c:otherwise>
 					</c:choose>

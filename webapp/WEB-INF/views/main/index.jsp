@@ -8,7 +8,7 @@
 <head>
 <title>mysite</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-<link href="/mysite3/assets/css/main.css" rel="stylesheet"
+<link href="/mysite4/assets/css/main.css" rel="stylesheet"
 	type="text/css">
 
 </head>
@@ -20,10 +20,10 @@
 		<div id="wrapper">
 			<div id="content">
 				<div id="site-introduction">
-					<img id="profile" src="/mysite3/assets/images/FullSizeRender.jpg">
+					<img id="profile" src="/mysite4/assets/images/FullSizeRender.jpg">
 					<h2>배고프다</h2>
 					<p>
-						돈까스먹고싶다. <br> <br> <a href="/mysite3/guestbook">방명록</a>에 글 남기기<br>
+						돈까스먹고싶다. <br> <br> <a href="/mysite4/guestbook/index">방명록</a>에 글 남기기<br>
 					</p>
 				</div>
 			</div>

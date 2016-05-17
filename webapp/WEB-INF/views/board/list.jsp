@@ -9,7 +9,7 @@
 <head>
 <title>mysite</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-<link href="/mysite3/assets/css/board.css" rel="stylesheet"
+<link href="/mysite4/assets/css/board.css" rel="stylesheet"
 	type="text/css">
 </head>
 <body>
@@ -19,7 +19,7 @@
 		</c:import>
 		<div id="content">
 			<div id="board">
-				<form id="search_form" action="/mysite3/board" method="post">
+				<form id="search_form" action="/mysite4/board" method="post">
 					<input type="text" id="kwd" name="kwd" value=""> <input
 						type="submit" value="찾기">
 				</form>
@@ -40,25 +40,25 @@
 								<c:when test="${vo.depth==0}">
 									<td>${requestScope.boardno-status.index}</td>
 									<td style="text-align: left; padding-left: 0px"><a
-										href="/mysite3/board/view?no=${vo.no}">${vo.title}</a></td>
-									<td>${vo.user_name}</td>
+										href="/mysite4/board/view?no=${vo.no}">${vo.title}</a></td>
+									<td>${vo.user.name}</td>
 									<td>${vo.hit}</td>
-									<td>${vo.reg_date}</td>
+									<td>${vo.regDate}</td>
 								</c:when>
 								<c:otherwise>
 									<td>${requestScope.boardno-status.index}</td>
 									<td style="text-align:left; padding-left:${vo.depth*20}px"><img
 										src="${pageContext.request.contextPath}/assets/images/reply.png"><a
-										href="/mysite3/board/view?no=${vo.no}">${vo.title}</a></td>
-									<td>${vo.user_name}</td>
+										href="/mysite4/board/view?no=${vo.no}">${vo.title}</a></td>
+									<td>${vo.user.name}</td>
 									<td>${vo.hit}</td>
-									<td>${vo.reg_date}</td>
+									<td>${vo.regDate}</td>
 
 								</c:otherwise>
 							</c:choose>
-							<td><c:if test="${vo.user_no==sessionScope.authUser.no}">
+							<td><c:if test="${vo.user.no==sessionScope.authUser.no}">
 
-									<a href="/mysite3/board/delete?no=${vo.no}&group_no=${vo.group_no}" class="del">삭제</a>
+									<a href="/mysite4/board/delete?no=${vo.no}&groupNo=${vo.groupNo}" class="del">삭제</a>
 								</c:if></td>
 						</tr>
 
@@ -68,22 +68,22 @@
 					<ul>
 
 						<c:if test="${pageinfo.currentpage > 5}">
-							<li><a href="/mysite3/board?page=${pageinfo.beginpage-1}&kwd=${kwd}">◀</a></li>
+							<li><a href="/mysite4/board?page=${pageinfo.beginpage-1}&kwd=${kwd}">◀</a></li>
 						</c:if>
 						<c:forEach begin="${pageinfo.beginpage}" end="${pageinfo.maxpage}"
 							var="viewpage">
 							<c:choose>
 							<c:when test="${viewpage==pageinfo.currentpage}">
-							<li class="selected"><a href="/mysite3/board?page=${viewpage}&kwd=${kwd}">${viewpage}</a></li>
+							<li class="selected"><a href="/mysite4/board?page=${viewpage}&kwd=${kwd}">${viewpage}</a></li>
 							</c:when>
 							<c:otherwise>
-							<li><a href="/mysite3/board?page=${viewpage}&kwd=${kwd}">${viewpage}</a></li>
+							<li><a href="/mysite4/board?page=${viewpage}&kwd=${kwd}">${viewpage}</a></li>
 							</c:otherwise>
 							</c:choose>
 
 						</c:forEach>
 						<c:if test="${pageinfo.totalpage != pageinfo.maxpage}">
-							<li><a href="/mysite3/board?page=${pageinfo.maxpage+1}&kwd=${kwd}">▶</a></li>
+							<li><a href="/mysite4/board?page=${pageinfo.maxpage+1}&kwd=${kwd}">▶</a></li>
 						</c:if>
 
 					</ul>
@@ -95,7 +95,7 @@
 					<c:otherwise>
 
 						<div class="bottom">
-							<a href="/mysite3/board/writeform" id="new-book">글쓰기</a>
+							<a href="/mysite4/board/writeform" id="new-book">글쓰기</a>
 						</div>
 					</c:otherwise>
 				</c:choose>

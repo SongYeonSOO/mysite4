@@ -5,7 +5,7 @@
 <head>
 <title>mysite</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-<link href="/mysite3/assets/css/user.css" rel="stylesheet"
+<link href="/mysite4/assets/css/user.css" rel="stylesheet"
 	type="text/css">
 </head>
 <body>
@@ -14,10 +14,10 @@
 		<div id="content">
 			<div id="user">
 				<form id="login-form" name="loginform" method="post"
-					action="/mysite3/user/login"> <label
+					action="/mysite4/user/login"> <label
 						class="block-label" for="email">이메일</label> <input id="email"
 						name="email" type="text" value=""> <label
-						class="block-label">패스워드</label> <input name="passwd"
+						class="block-label">패스워드</label> <input name="password"
 						type="password" value="">
 
 					<input type="submit" value="로그인">

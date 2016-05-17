@@ -9,11 +9,11 @@
 <head>
 <title>mysite</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-<link href="/mysite3/assets/css/user.css" rel="stylesheet"
+<link href="/mysite4/assets/css/user.css" rel="stylesheet"
 	type="text/css">
 <!--  	<link href="${pageContext.request.contextPath}/assets/css/user.css" rel="stylesheet"> -->
 <script type="text/javascript"
-	src="/mysite3/assets/js/jquery/jquery-1.9.0.js">
+	src="/mysite4/assets/js/jquery/jquery-1.9.0.js">
 	
 </script>
 <script type="text/javascript">
@@ -47,10 +47,10 @@
 			}
 
 			//3. 패스워드 유효성 체크
-			var passwd = $("#passwd").val();
-			if (passwd == "") {
+			var password = $("#password").val();
+			if (password == "") {
 				alert("패스워드 없다!");
-				$("#passwd").val("").focus();
+				$("#password").val("").focus();
 				return false;
 			}
 
@@ -76,7 +76,7 @@
 			$.ajax({
 				//ajax가 js가 참조할 수 있는 객체로 만들어줌! 
 
-				url : "/mysite3/user/checkemail?email=" + email, //요청 url
+				url : "/mysite4/user/checkemail?email=" + email, //요청 url
 				type : "get", //통신 방식 get/post
 				dataType : "json", //수신데이터타입
 				data : "", //post방식인 경우 서버에 전달할 parameter data
@@ -124,15 +124,15 @@
 			<div id="user">
 
 				<form id="join-form" name="joinForm" method="post"
-					action="/mysite3/user/join">
+					action="/mysite4/user/join">
 					<label class="block-label" for="name">이름</label> <input id="name"
 						name="name" type="text" value="">
 
-					<spring:hasBindErrors name="userVo">
+					<spring:hasBindErrors name="user">
 						<c:if test="${errors.hasFieldErrors('name') }">
 							<br>
 							<strong style="color:red"> <spring:message
-									code="NotEmpty.userVo.name"
+									code="NotEmpty.user.name"
 									text="${errors.getFieldError( 'name' ).defaultMessage }"></spring:message></strong>
 						</c:if>
 					</spring:hasBindErrors>
@@ -141,40 +141,40 @@
 						id="email" name="email" type="text" value=""> <input
 						type="button" value="id 중복체크" id="btn-checkemail"> <img
 						id="img-checkemail" style="display: none;"
-						src="/mysite3/assets/images/check.png">
-					<spring:hasBindErrors name="userVo">
+						src="/mysite4/assets/images/check.png">
+					<spring:hasBindErrors name="user">
 
 						<c:if test="${errors.hasFieldErrors('email') }">
 							<br>
 							<strong style="color:red"> <spring:message
-									code="NotEmpty.userVo.email"
+									code="NotEmpty.user.email"
 									text="${errors.getFieldError( 'email' ).defaultMessage }"></spring:message></strong>
 						</c:if>
 						<c:if test="${errors.hasFieldErrors('email') }">
 							<br>
 							<strong style="color:red"> <spring:message
-									code="Email.userVo.email"
+									code="Email.user.email"
 									text="${errors.getFieldError( 'email' ).defaultMessage }"></spring:message></strong>
 						</c:if>
 					</spring:hasBindErrors>
 
-					<label class="block-label">패스워드</label> <input id="passwd"
-						name="passwd" type="password" value="">
-					<spring:hasBindErrors name="userVo">
+					<label class="block-label">패스워드</label> <input id="password"
+						name="password" type="password" value="">
+					<spring:hasBindErrors name="user">
 
-						<c:if test="${errors.hasFieldErrors('passwd') }">
+						<c:if test="${errors.hasFieldErrors('password') }">
 							<br>
 							<strong style="color:red"> <spring:message
-									code="NotEmpty.userVo.passwd"
-									text="${errors.getFieldError( 'passwd' ).defaultMessage }"></spring:message></strong>
+									code="NotEmpty.user.password"
+									text="${errors.getFieldError( 'password' ).defaultMessage }"></spring:message></strong>
 						</c:if>
 					</spring:hasBindErrors>
 
 					<fieldset>
 						<legend>성별</legend>
-						<label>여</label> <input type="radio" name="gender" value="F"
+						<label>여</label> <input type="radio" name="gender" value="FEMALE"
 							checked="checked"> <label>남</label> <input type="radio"
-							name="gender" value="M">
+							name="gender" value="MALE">
 					</fieldset>
 
 					<fieldset>

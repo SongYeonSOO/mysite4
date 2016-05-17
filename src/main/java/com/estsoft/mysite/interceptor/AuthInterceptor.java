@@ -8,7 +8,7 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.estsoft.mysite.annotation.Auth;
-import com.estsoft.mysite.vo.UserVo;
+import com.estsoft.mysite.domain.User;
 
 public class AuthInterceptor extends HandlerInterceptorAdapter {
 
@@ -36,7 +36,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 			response.sendRedirect(request.getContextPath()+"/user/loginform");
 			return false;
 		}
-		UserVo authUser =(UserVo)session.getAttribute("authUser");
+		User authUser =(User)session.getAttribute("authUser");
 		if(authUser == null){
 			response.sendRedirect(request.getContextPath()+"/user/loginform");
 		}

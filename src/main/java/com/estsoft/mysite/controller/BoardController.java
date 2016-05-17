@@ -1,7 +1,6 @@
 package com.estsoft.mysite.controller;
 
-import java.util.HashMap;
-import java.util.List;
+
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -12,13 +11,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.estsoft.mysite.annotation.Auth;
 import com.estsoft.mysite.annotation.AuthUser;
+import com.estsoft.mysite.domain.Board;
+import com.estsoft.mysite.domain.User;
 import com.estsoft.mysite.service.BoardService;
-import com.estsoft.mysite.vo.BoardVo;
-import com.estsoft.mysite.vo.UserVo;
 
 @Controller
 @RequestMapping("/board")
@@ -45,7 +43,7 @@ public class BoardController {
 	@RequestMapping("/view")
 	public String view(@RequestParam(value = "no", required = true, defaultValue = "-1") Long no, Model model,HttpSession session) {
 		
-		BoardVo vo=boardService.getView(no, true);
+		Board vo=boardService.getView(no, true);
 		vo.setNo(no);
 		
 		model.addAttribute("vo",vo);
@@ -53,19 +51,20 @@ public class BoardController {
 	}
 
 	@RequestMapping("/boardmodifyform")
-	public String boardModifyForm(@ModelAttribute BoardVo vo,Model model) {
+	public String boardModifyForm(@ModelAttribute Board vo,Model model) {
 		model.addAttribute("vo", vo);
 		return "board/modify";
 	}
 	
 	@RequestMapping("/boardmodify")
-	public String boardModify(@ModelAttribute BoardVo vo,HttpSession session) {
-		UserVo userVo = (UserVo)session.getAttribute("authUser");
-		vo.setUser_no(userVo.getNo());		
+	public String boardModify(@ModelAttribute Board vo,HttpSession session) {
+		User userVo = (User)session.getAttribute("authUser");
+		User user = new User();
+		user.setNo(userVo.getNo());
 
 		System.out.println("BC: VO"+vo);
 		
-		BoardVo boardVo=boardService.getView(vo.getNo(), false);
+		Board boardVo=boardService.getView(vo.getNo(), false);
 		
 		boardVo.setNo(vo.getNo());
 		boardVo.setTitle(vo.getTitle());
@@ -79,25 +78,29 @@ public class BoardController {
 	
 
 	@RequestMapping("/writeform")
-	public String writeForm(@ModelAttribute BoardVo vo,Model model)  {
+	public String writeForm(@ModelAttribute Board vo,Model model)  {
 		model.addAttribute("vo",vo);
 		return "board/write";
 }
 	@Auth
 	@RequestMapping("/write")
 	//@AuthUser로 받는 parameter는 반드시 인증된 사용자가 넘어오게된다
-		public String write(@AuthUser UserVo authUser,HttpSession session, @ModelAttribute BoardVo vo)  {
+		public String write(@AuthUser User authUser,HttpSession session, @ModelAttribute Board vo)  {
 		/*UserVo userVo = (UserVo)session.getAttribute("authUser");*/
 		System.out.println("write:::::::::::::::::::::::::::::auth::::::::"+authUser);
 		System.out.println("write:::::::::::::::::::::::::::::vo::::::::"+vo);
-		vo.setUser_no(authUser.getNo());
-		vo.setUser_name(authUser.getName());
-		
+
+		User user = new User();
+		user.setNo(authUser.getNo());
+		user.setName(authUser.getName());
+		System.out.println("before"+vo);
+		vo.setUser(user);
+		System.out.println("after"+vo);
 		if(vo.getNo()!= null){
-		BoardVo superVo=boardService.getView(vo.getNo(), false);
-		vo.setOrder_no(superVo.getOrder_no());
+		Board superVo=boardService.getView(vo.getNo(), false);
+		vo.setOrderNo(superVo.getOrderNo());
 		vo.setDepth(superVo.getDepth());
-		vo.setGroup_no(superVo.getGroup_no());
+		vo.setGroupNo(superVo.getGroupNo());
 		}
 		
 		boardService.insert(vo);
@@ -105,7 +108,7 @@ public class BoardController {
 	}
 
 	@RequestMapping("/delete")
-	public String delete(@ModelAttribute BoardVo vo)  {
+	public String delete(@ModelAttribute Board vo)  {
 		boardService.delete(vo);
 		return "redirect:/board";
 	}
