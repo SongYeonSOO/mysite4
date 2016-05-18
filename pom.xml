@@ -102,7 +102,7 @@
 			<artifactId>spring-aspects</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
-		
+
 		<!-- 스프링 ORM -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -116,7 +116,7 @@
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>4.3.8.Final</version>
 		</dependency>
-		
+
 
 		<!-- queryDSL -->
 		<dependency>
@@ -131,31 +131,8 @@
 			<version>3.6.2</version>
 			<scope>provided</scope>
 		</dependency>
-				
 	</dependencies>
-	<!-- query dsl -->
-<!-- 	<build>
-		<plugins>
-			<plugin>
-				<groupId>com.mysema.maven</groupId>
-				<artifactId>apt-maven-plugin</artifactId>
-				<version>1.0.9</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>process</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>target/generated-sources/java</outputDirectory>
-							<processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor</processor>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
 
-	 -->
 	<build>
 		<plugins>
 			<plugin>
@@ -173,6 +150,25 @@
 					<warSourceDirectory>WebApp</warSourceDirectory>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
+
+			</plugin>
+
+			<!-- query dsl plugin -->
+			<plugin>
+				<groupId>com.mysema.maven</groupId>
+				<artifactId>apt-maven-plugin</artifactId>
+				<version>1.0.9</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>process</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>target/generated-sources/java</outputDirectory>
+							<processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor</processor>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

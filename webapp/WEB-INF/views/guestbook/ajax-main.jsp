@@ -15,6 +15,7 @@
 	src="${pageContext.request.contextPath}/assets/js/jquery/jquery-1.9.0.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script type="text/javascript">
+var postCount =0;
 var formatTime = function( timestamp ) {
 
 	var date = new Date(timestamp);
@@ -42,22 +43,27 @@ var formatTime = function( timestamp ) {
 			data : "", //get방식이니깐 본문에 들어가는 data가 없음
 			success : function(response) {
 				console.log(response);
-
 				if (response.result != "success") {
 					return;
 				}
 				if (response.data.length == 0) {
 					console.log("end!");
 					//$("btn-next").hide(); 와 동일!
-					$("btn-next").attr("disabled", true);
+					$("#btn-next").attr("disabled", true);
 					return;
 				}
 				// data: array , guestbook : object
 				$.each(response.data, function(index, guestbook) {
+				if(postCount>0){
+					postCount--;
+				}else{
 					console.log(index + ":" + guestbook);
 					renderHtml(guestbook);
+				}
 				});
+
 				page++;
+				console.log(page);
 			},
 			error : function(xhr, status, error) {
 				console.log(status + ":" + error);
@@ -96,8 +102,12 @@ var formatTime = function( timestamp ) {
 
 		//gb-list 뒤에 추가
 		// cf> prepend : 앞에 추가
-		$("#gb-list").prepend(html);
 
+/* 		if($( "gb-list li" ).length!=null){
+		$("#gb-list li:last-child").remove();
+		}
+ */		$("#gb-list").prepend(html);
+ postCount++;	
 	}
 	$(function() {
 
